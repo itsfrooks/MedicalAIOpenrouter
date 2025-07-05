@@ -27,7 +27,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Get OpenRouter API key from environment
-      const apiKey = process.env.OPENROUTER_API_KEY;
+      const apiKey = process.env.OPENROUTER_API_KEY?.trim();
       
       if (!apiKey) {
         return res.status(500).json({ error: "OpenRouter API key not configured" });
@@ -62,12 +62,10 @@ Please be helpful, accurate, and engaging in your responses. If you're unsure ab
         method: "POST",
         headers: {
           "Authorization": `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": process.env.REPLIT_DOMAINS?.split(',')[0] || "https://replit.com",
-          "X-Title": "Deepseek R1 Chatbot"
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          model: "deepseek/deepseek-r1",
+          model: "openai/gpt-3.5-turbo",
           messages: messagesWithSystem,
           temperature: 0.7,
           max_tokens: 2000
