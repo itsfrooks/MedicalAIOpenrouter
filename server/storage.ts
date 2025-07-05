@@ -1,26 +1,24 @@
-import { users, assessments, type User, type InsertUser, type Assessment, type InsertAssessment, type AIResponse } from "@shared/schema";
+import { users, messages, type User, type InsertUser, type Message, type InsertMessage } from "@shared/schema";
 
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  createAssessment(assessment: InsertAssessment): Promise<Assessment>;
-  updateAssessment(id: number, aiResponse: AIResponse): Promise<Assessment | undefined>;
-  getUserAssessments(userId?: number): Promise<Assessment[]>;
-  getAssessment(id: number): Promise<Assessment | undefined>;
+  createMessage(message: InsertMessage): Promise<Message>;
+  getMessages(): Promise<Message[]>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
-  private assessments: Map<number, Assessment>;
+  private messages: Map<number, Message>;
   private currentUserId: number;
-  private currentAssessmentId: number;
+  private currentMessageId: number;
 
   constructor() {
     this.users = new Map();
-    this.assessments = new Map();
+    this.messages = new Map();
     this.currentUserId = 1;
-    this.currentAssessmentId = 1;
+    this.currentMessageId = 1;
   }
 
   async getUser(id: number): Promise<User | undefined> {
@@ -40,39 +38,20 @@ export class MemStorage implements IStorage {
     return user;
   }
 
-  async createAssessment(insertAssessment: InsertAssessment): Promise<Assessment> {
-    const id = this.currentAssessmentId++;
-    const assessment: Assessment = {
-      ...insertAssessment,
+  async createMessage(insertMessage: InsertMessage): Promise<Message> {
+    const id = this.currentMessageId++;
+    const message: Message = {
+      ...insertMessage,
       id,
-      userId: null,
-      aiResponse: null,
       createdAt: new Date(),
     };
-    this.assessments.set(id, assessment);
-    return assessment;
+    this.messages.set(id, message);
+    return message;
   }
 
-  async updateAssessment(id: number, aiResponse: AIResponse): Promise<Assessment | undefined> {
-    const assessment = this.assessments.get(id);
-    if (!assessment) return undefined;
-
-    const updatedAssessment: Assessment = {
-      ...assessment,
-      aiResponse,
-    };
-    this.assessments.set(id, updatedAssessment);
-    return updatedAssessment;
-  }
-
-  async getUserAssessments(userId?: number): Promise<Assessment[]> {
-    return Array.from(this.assessments.values())
-      .filter(assessment => !userId || assessment.userId === userId)
-      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-  }
-
-  async getAssessment(id: number): Promise<Assessment | undefined> {
-    return this.assessments.get(id);
+  async getMessages(): Promise<Message[]> {
+    return Array.from(this.messages.values())
+      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
   }
 }
 
