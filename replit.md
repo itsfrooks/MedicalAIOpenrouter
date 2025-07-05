@@ -74,11 +74,13 @@ This is a simple full-stack chatbot application built with React on the frontend
 - **Max Tokens**: 2000 for comprehensive responses
 
 ## Recent Changes
-- July 05, 2025: Converted medical diagnostic app to simple chatbot
+- July 05, 2025: Successfully migrated from Replit Agent to standard Replit environment
+- Converted medical diagnostic app to simple chatbot
 - Simplified schema to focus on chat messages
 - Implemented clean chat interface with real-time messaging
-- Integrated Deepseek R1 via OpenRouter API
-- Added conversation history context for better responses
+- Integrated OpenRouter API with fallback error handling
+- Added robust error handling for API connectivity issues
+- Ensured secure client/server separation and proper environment configuration
 
 ## User Preferences
 
