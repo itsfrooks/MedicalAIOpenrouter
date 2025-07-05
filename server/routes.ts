@@ -65,7 +65,7 @@ Please be helpful, accurate, and engaging in your responses. If you're unsure ab
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          model: "openai/gpt-3.5-turbo",
+          model: "meta-llama/llama-3.1-8b-instruct:free",
           messages: messagesWithSystem,
           temperature: 0.7,
           max_tokens: 2000
