@@ -118,9 +118,12 @@ export default function Home() {
                           {message.role === "user" ? "You" : "Deepseek R1"}
                         </span>
                       </div>
-                      <div className="whitespace-pre-wrap text-sm">
-                        {message.content}
-                      </div>
+                      <div 
+                        className="whitespace-pre-wrap text-sm"
+                        dangerouslySetInnerHTML={{ 
+                          __html: message.content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+                        }}
+                      />
                     </div>
                   </div>
                 ))
