@@ -26,8 +26,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         role: "user"
       });
 
-      // Use the provided API key
-      const apiKey = "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";
+      // Get OpenRouter API key from environment
+      const apiKey = process.env.OPENROUTER_API_KEY;
+      
+      if (!apiKey) {
+        return res.status(500).json({ error: "OpenRouter API key not configured" });
+      }
 
       // Get all previous messages for context
       const allMessages = await storage.getMessages();
