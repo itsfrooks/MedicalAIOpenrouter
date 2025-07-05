@@ -62,10 +62,10 @@ export default function Home() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Bot className="text-blue-600 h-8 w-8 mr-3" />
-              <h1 className="text-xl font-semibold text-gray-900">Deepseek R1 Chatbot</h1>
+              <h1 className="text-xl font-semibold text-gray-900">Medical Diagnostic AI Assistant</h1>
             </div>
             <div className="text-sm text-gray-500">
-              Powered by OpenRouter
+              Deepseek R1 via OpenRouter
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function Home() {
           <CardHeader className="border-b border-gray-200">
             <CardTitle className="flex items-center text-lg font-semibold text-gray-900">
               <MessageCircle className="text-blue-600 h-5 w-5 mr-2" />
-              Chat with Deepseek R1
+              Medical Diagnostic Assistant
             </CardTitle>
           </CardHeader>
           
@@ -92,8 +92,18 @@ export default function Home() {
               ) : messages.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-gray-500">
                   <Bot className="h-12 w-12 mb-4 text-gray-300" />
-                  <p className="text-lg font-medium">Welcome to Deepseek R1!</p>
-                  <p className="text-sm">Start a conversation by typing a message below.</p>
+                  <p className="text-lg font-medium">Medical Diagnostic AI Assistant</p>
+                  <p className="text-sm">Describe your symptoms or medical concerns to get a comprehensive analysis.</p>
+                  <div className="mt-4 p-4 bg-blue-50 rounded-lg max-w-md text-xs text-blue-800">
+                    <p className="font-medium mb-2">What I can help with:</p>
+                    <ul className="list-disc list-inside space-y-1 text-left">
+                      <li>Symptom analysis and differential diagnosis</li>
+                      <li>Recommended blood tests and imaging</li>
+                      <li>Clinical reasoning and next steps</li>
+                      <li>Risk assessment and urgency levels</li>
+                    </ul>
+                    <p className="mt-3 text-red-600 font-medium">⚠️ For educational purposes only. Always consult a healthcare professional.</p>
+                  </div>
                 </div>
               ) : (
                 messages.map((message) => (
@@ -115,7 +125,7 @@ export default function Home() {
                           <Bot className="h-4 w-4 mr-2" />
                         )}
                         <span className="text-xs font-medium">
-                          {message.role === "user" ? "You" : "Deepseek R1"}
+                          {message.role === "user" ? "You" : "Medical AI"}
                         </span>
                       </div>
                       <div 
@@ -133,7 +143,7 @@ export default function Home() {
                   <div className="bg-gray-100 text-gray-900 rounded-lg px-4 py-2">
                     <div className="flex items-center">
                       <Bot className="h-4 w-4 mr-2" />
-                      <span className="text-xs font-medium">Deepseek R1</span>
+                      <span className="text-xs font-medium">Medical AI</span>
                     </div>
                     <div className="flex items-center mt-1">
                       <div className="animate-pulse flex space-x-1">
@@ -155,7 +165,7 @@ export default function Home() {
                 <Input
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
-                  placeholder="Type your message..."
+                  placeholder="Describe your symptoms (e.g., fever, headache, chest pain)..."
                   disabled={sendMessageMutation.isPending}
                   className="flex-1"
                 />
